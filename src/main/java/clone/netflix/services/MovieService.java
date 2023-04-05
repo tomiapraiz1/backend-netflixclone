@@ -1,0 +1,54 @@
+package clone.netflix.services;
+
+import clone.netflix.entities.Movie;
+import clone.netflix.repositories.MovieRepository;
+import org.apache.coyote.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Optional;
+
+@Service
+public class MovieService {
+
+    private final MovieRepository movieRepository;
+    private final Logger log = LoggerFactory.getLogger(MovieService.class);
+
+    @Autowired
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
+
+    public ArrayList<Movie> findAllMovies(){
+        return (ArrayList<Movie>) movieRepository.findAll();
+    }
+
+    public ResponseEntity<Movie> findMovieById(Long id){
+        Optional<Movie> movieResponseEntity = movieRepository.findById(id);
+        if (!movieResponseEntity.isPresent()){
+            log.warn("Movie with id=" + id + " not found");
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(movieResponseEntity.get());
+    }
+
+    public ResponseEntity<Movie> findMovieByName(String name){
+        Movie movie = movieRepository.findMovieByName(name);
+        if (movie == null){
+            log.warn("Movie not found with name=" + name);
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(movie);
+    }
+
+    public ArrayList<Movie> findAllMoviesByGenre(String genre){
+        return movieRepository.findAllMoviesByGenre(genre);
+    }
+
+}
