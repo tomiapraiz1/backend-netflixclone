@@ -38,13 +38,8 @@ public class MovieService {
         return ResponseEntity.ok(movieResponseEntity.get());
     }
 
-    public ResponseEntity<Movie> findMovieByName(String name){
-        Movie movie = movieRepository.findMovieByName(name);
-        if (movie == null){
-            log.warn("Movie not found with name=" + name);
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(movie);
+    public ArrayList<Movie> findMoviesByName(String name){
+        return movieRepository.findMoviesByName(name);
     }
 
     public ArrayList<Movie> findAllMoviesByGenre(String genre){

@@ -25,18 +25,18 @@ public class MovieController {
         return movieService.findAllMovies();
     }
 
-    @GetMapping("/api/v1/movie/{id}")
+    @GetMapping("/api/v1/movie/id={id}")
     public ResponseEntity<Movie> findOneMovieById(@PathVariable Long id){
         return movieService.findMovieById(id);
     }
 
-    @GetMapping("/api/v1/movie/{name}")
-    public ResponseEntity<Movie> findOneMovieById(@PathVariable String name){
-        return movieService.findMovieByName(name);
+    @GetMapping("/api/v1/movies/name={name}")
+    public ArrayList<Movie> findMoviesByName(@PathVariable String name){
+        return movieService.findMoviesByName(name);
     }
 
-    @GetMapping("/api/v1/movies/{genre}")
-    public ArrayList<Movie> findAllMoviesByGenre(String genre){
+    @GetMapping("/api/v1/movies/genre={genre}")
+    public ArrayList<Movie> findAllMoviesByGenre(@PathVariable String genre){
         return movieService.findAllMoviesByGenre(genre);
     }
 

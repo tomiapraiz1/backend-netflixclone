@@ -11,9 +11,9 @@ import java.util.ArrayList;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query("SELECT m FROM Movie m WHERE m.genres = ?1")
+    @Query("SELECT m FROM Movie m WHERE m.genres LIKE %?1%")
     ArrayList<Movie> findAllMoviesByGenre(String genre);
 
-    @Query("SELECT m FROM Movie m WHERE m.name = ?1")
-    Movie findMovieByName(String name);
+    @Query("SELECT m FROM Movie m WHERE m.name LIKE %?1%")
+    ArrayList<Movie> findMoviesByName(String name);
 }

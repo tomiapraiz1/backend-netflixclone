@@ -15,16 +15,10 @@ public class NetflixApplication {
 		ApplicationContext applicationContext = SpringApplication.run(NetflixApplication.class, args);
 		MovieRepository movieRepository = applicationContext.getBean(MovieRepository.class);
 
-		String genre1 = "Action";
-		String genre2 = "Drama";
-		String genre3 = "Terror";
-		ArrayList<String> movie1 = new ArrayList<String>();
-		movie1.add(genre1);
-		movie1.add(genre2);
-		ArrayList<String> movie2 = new ArrayList<String>();
-		movie2.add(genre3);
-		Movie movieAction = new Movie(null, "Boca", 100, movie1, "");
-		Movie movieTerror = new Movie(null, "River", 100, movie2, "");
+		String genre1 = "Action;Drama";
+		String genre2 = "Terror";
+		Movie movieAction = new Movie(null, "Boca River", 100, genre1, "");
+		Movie movieTerror = new Movie(null, "River", 100, genre2, "");
 
 		movieRepository.save(movieAction);
 		movieRepository.save(movieTerror);
