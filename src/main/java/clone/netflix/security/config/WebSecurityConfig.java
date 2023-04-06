@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/movie/**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/movie/**").hasRole("USER")
                 .requestMatchers("/api/v1/user/**").hasRole("ADMIN")
+                .requestMatchers("/swagger-ui/index.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // Possibly more configuration ...
