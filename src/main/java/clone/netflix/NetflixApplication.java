@@ -28,8 +28,8 @@ public class NetflixApplication {
 		movieRepository.save(movieAction);
 		movieRepository.save(movieTerror);
 
-//		User user = new User("tomi", passwordEncoder.encode("213"), "");
-//		userRepository.save(user);
+		User user = new User("tomi", passwordEncoder.encode("213"), "", "Thomas", "male", 23);
+		userRepository.save(user);
 
 	}
 

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -27,12 +28,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .requestMatchers("/api/v1/movies").permitAll()
                 .requestMatchers("/api/v1/movies/**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/movies/**").hasRole("USER")
                 .requestMatchers("/api/v1/movie/**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/movie/**").hasRole("USER")
+                .requestMatchers("/api/v1/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 // Possibly more configuration ...
