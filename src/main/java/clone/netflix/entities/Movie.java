@@ -17,10 +17,12 @@ public class Movie {
     private String name;
     @Column(nullable = false)
     private int duration;
-    private String genres;
+    @Column(nullable = false)
+    @ElementCollection
+    private List<String> genres;
     private String description;
 
-    public Movie(Long id, String name, int duration, String genres, String description) {
+    public Movie(Long id, String name, int duration, List<String> genres, String description) {
         this.id = id;
         this.name = name;
         this.duration = duration;
@@ -64,6 +66,10 @@ public class Movie {
     }
 
     public List<String> getGenres() {
-        return Arrays.asList(genres.split(";"));
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 }
