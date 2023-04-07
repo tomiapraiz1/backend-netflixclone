@@ -1,5 +1,6 @@
 package clone.netflix.controllers;
 
+import clone.netflix.dtos.MovieDTO;
 import clone.netflix.entities.Movie;
 import clone.netflix.services.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Movies", description = "Movies management APIs")
-
 @RestController
+@RequestMapping("/api/v1/movies")
 public class MovieController {
 
     private final MovieService movieService;
@@ -27,8 +28,8 @@ public class MovieController {
             summary = "Create a Movie using JSON format",
             description = "Create a Movie object by specifying its id (must be null), name, duration, genres and description in JSON format. The response is Movie object with body.",
             tags = { "movie", "post" })
-    @PostMapping("/api/v1/movie")
-    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie){
+    @PostMapping("/create")
+    public ResponseEntity<MovieDTO> createMovie(@RequestBody Movie movie){
         return movieService.createMovie(movie);
     }
 
@@ -36,8 +37,8 @@ public class MovieController {
             summary = "Find all movies",
             description = "Find all movies. The response is a list of Movie object.",
             tags = { "movie", "get" })
-    @GetMapping("/api/v1/movies")
-    public ArrayList<Movie> findAllMovies(){
+    @GetMapping("/all")
+    public ArrayList<MovieDTO> findAllMovies(){
         return movieService.findAllMovies();
     }
 
@@ -45,7 +46,7 @@ public class MovieController {
             summary = "Delete all movies",
             description = "Delete all movies. The response is an 200 status.",
             tags = { "movie", "delete" })
-    @DeleteMapping("/api/v1/movies")
+    @DeleteMapping("/all")
     public ResponseEntity deleteAllMovies(){
         return movieService.deleteAllMovies();
     }
@@ -55,8 +56,8 @@ public class MovieController {
             summary = "Retrive a Movie by id",
             description = "Get a Movie object by specifying its id. The response is Movie object with body.",
             tags = { "movie", "get" })
-    @GetMapping("/api/v1/movie/id={id}")
-    public ResponseEntity<Movie> findOneMovieById(@PathVariable Long id){
+    @GetMapping("/movieid={id}")
+    public ResponseEntity<MovieDTO> findOneMovieById(@PathVariable Long id){
         return movieService.findMovieById(id);
     }
 
@@ -64,8 +65,8 @@ public class MovieController {
             summary = "Delete a Movie by id",
             description = "Delete a Movie object by specifying its id. The response is Movie object with body.",
             tags = { "movie", "delete" })
-    @DeleteMapping("/api/v1/movie/id={id}")
-    public ResponseEntity<Movie> deleteOneMovieById(@PathVariable Long id){
+    @DeleteMapping("/movieid={id}")
+    public ResponseEntity<MovieDTO> deleteOneMovieById(@PathVariable Long id){
         return movieService.findMovieById(id);
     }
 
@@ -73,8 +74,8 @@ public class MovieController {
             summary = "Find all movies which contains an specified name",
             description = "Find all movie object which contains an specified name. The response is an list of Movie object with body.",
             tags = { "movie", "get" })
-    @GetMapping("/api/v1/movies/name={name}")
-    public ArrayList<Movie> findMoviesByName(@PathVariable String name){
+    @GetMapping("/moviename={name}")
+    public ArrayList<MovieDTO> findMoviesByName(@PathVariable String name){
         return movieService.findMoviesByName(name);
     }
 
@@ -82,8 +83,8 @@ public class MovieController {
             summary = "Find all movies which contains an specified genre",
             description = "Find all movie object which contains an specified genre. The response is an list of Movie object with body.",
             tags = { "movie", "get" })
-    @GetMapping("/api/v1/movies/genre={genre}")
-    public List<Movie> findAllMoviesByGenre(@PathVariable String genre){
+    @GetMapping("/moviegenre={genre}")
+    public List<MovieDTO> findAllMoviesByGenre(@PathVariable String genre){
         return movieService.findAllMoviesByGenre(genre);
     }
 
